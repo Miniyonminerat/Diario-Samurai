@@ -1,0 +1,517 @@
+/* ============================================================
+   VARIABLES GLOBALES — MODO CLARO (por defecto)
+   Las variables se declaran con --nombre y se usan con var(--nombre)
+   Esto permite cambiar todos los colores desde un solo lugar
+   ============================================================ */
+
+:root {
+  /* :root apunta al elemento <html>, es donde viven las variables globales */
+
+  /* Colores principales */
+  --color-rojo: #c0392b;
+  --color-fondo: #ffffff;           /* Fondo general de la página */
+  --color-fondo-card: #f5f5f5;      /* Fondo de tarjetas y inputs */
+  --color-fondo-formulario: #ffffff; /* Fondo del formulario */
+  --color-texto: #1a1a1a;           /* Color principal de texto */
+  --color-texto-secundario: #888888; /* Textos de menor importancia */
+  --color-borde: #e0e0e0;           /* Bordes de elementos */
+
+  /* Fuente principal */
+  --fuente: 'Georgia', serif;
+}
+
+/* ============================================================
+   VARIABLES GLOBALES — MODO OSCURO
+   Mismos nombres de variables, distintos valores
+   Cuando <html> tenga la clase "oscuro", estos valores reemplazan
+   automáticamente a los de arriba en TODA la página
+   ============================================================ */
+
+:root.oscuro {
+  --color-fondo: #121212;           /* Fondo muy oscuro */
+  --color-fondo-card: #1e1e1e;      /* Tarjetas un poco más claras que el fondo */
+  --color-fondo-formulario: #1a1a1a; /* Fondo del formulario oscuro */
+  --color-texto: #f0f0f0;           /* Texto claro para contrastar con fondo oscuro */
+  --color-texto-secundario: #888888; /* Este gris funciona bien en ambos modos */
+  --color-borde: #2e2e2e;           /* Borde sutil en modo oscuro */
+  /* --color-rojo no cambia: el rojo funciona bien en ambos modos */
+}
+
+/* ============================================================
+   RESET BÁSICO
+   Elimina márgenes y paddings por defecto del navegador
+   ============================================================ */
+
+* {
+  /* * apunta a TODOS los elementos */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* box-sizing: border-box incluye padding y border dentro del ancho total
+     evita que los elementos se desborden de su contenedor */
+}
+
+/* ============================================================
+   TRANSICIÓN GLOBAL
+   Hace que el cambio de modo claro a oscuro sea suave
+   en lugar de un cambio brusco instantáneo
+   ============================================================ */
+
+body, .card, .formulario, .entrada, textarea, .boton-mood, .boton-filtro, button {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  /* transition anima los cambios de estas propiedades CSS
+     0.3s = duración de la animación
+     ease = empieza lento, acelera, termina lento */
+}
+
+/* ============================================================
+   ESTILOS BASE
+   ============================================================ */
+
+body {
+  font-family: var(--fuente);
+  background-color: var(--color-fondo);   /* Usa la variable, cambia sola con el modo */
+  color: var(--color-texto);              /* Idem */
+  line-height: 1.6;
+  padding: 2rem;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+header {
+  margin-bottom: 1.5rem;
+}
+
+.header-top {
+  display: flex;
+  /* En móvil: columna (título arriba, botón abajo) */
+  /* En pantallas grandes: fila (título centrado, botón a la derecha) */
+  flex-direction: column;
+  align-items: center;  /* Centra todo horizontalmente */
+  gap: 1rem;
+  position: relative;   /* Necesario para posicionar el botón en desktop */
+}
+
+.header-textos {
+  text-align: center;   /* Centra el texto del título */
+}
+
+
+
+/* ============================================================
+   RESPONSIVE — Media Queries
+   @media aplica estilos SOLO cuando se cumple la condición
+   min-width: 600px = "solo en pantallas de 600px o más"
+   ============================================================ */
+
+@media (min-width: 600px) {
+  .header-top {
+    flex-direction: row;
+    /* En desktop volvemos a fila */
+    justify-content: center;
+    /* Centramos el contenido */
+  }
+
+}
+
+header h2 {
+  font-size: 0.85rem;
+  color: var(--color-rojo);
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--color-texto); /* Usa variable para respetar el modo oscuro */
+}
+
+hr {
+  border: none;
+  border-top: 2px solid var(--color-rojo);
+  margin-bottom: 2rem;
+}
+
+/* ============================================================
+   BOTÓN DE TEMA (CLARO / OSCURO)
+   ============================================================ */
+
+#btn-tema {
+  background: none;              /* Sin fondo */
+  border: 0.5px solid var(--color-borde);
+  border-radius: 50%;            /* border-radius: 50% hace el elemento circular */
+  width: 40px;
+  height: 40px;
+  font-size: 1.1rem;             /* Tamaño del emoji */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--color-texto);
+  flex-shrink: 0;
+  /* flex-shrink: 0 evita que el botón se achique cuando el espacio es limitado */
+}
+
+#btn-tema:hover {
+  border-color: var(--color-rojo);
+  transform: rotate(20deg);
+  /* transform: rotate() rota el elemento, da un efecto juguetón al hover */
+}
+
+/* ============================================================
+   SECCIÓN PRINCIPAL
+   ============================================================ */
+
+.seccion-diario {
+  max-width: 680px;
+  margin: 0 auto;
+  /* margin: 0 auto centra horizontalmente el elemento
+     0 = sin margen arriba/abajo, auto = igual a izq y der */
+}
+
+/* ============================================================
+   TARJETAS DE ESTADÍSTICAS
+   ============================================================ */
+
+.estadisticas {
+  display: grid;
+  /* display: grid activa el sistema de cuadrícula */
+  grid-template-columns: repeat(3, 1fr);
+  /* repeat(3, 1fr) = 3 columnas de igual tamaño
+     1fr = 1 fracción del espacio disponible */
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background-color: var(--color-fondo-card); /* Cambia sola con el modo */
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.card p:first-child {
+  /* :first-child apunta al primer <p> dentro de .card (el número) */
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--color-rojo);
+}
+
+.label-card {
+  font-size: 0.7rem;
+  color: var(--color-texto-secundario);
+  letter-spacing: 0.12em;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   FORMULARIO
+   ============================================================ */
+
+.formulario {
+  background-color: var(--color-fondo-formulario);
+  border: 0.5px solid var(--color-borde);
+  border-left: 3px solid var(--color-rojo);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.label-seccion {
+  font-size: 0.7rem;
+  color: var(--color-texto-secundario);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+textarea#input-texto {
+  width: 100%;
+  min-height: 90px;
+  padding: 10px 12px;
+  font-family: var(--fuente);
+  font-size: 0.9rem;
+  border: 0.5px solid var(--color-borde);
+  border-radius: 6px;
+  resize: vertical;
+  margin-bottom: 1rem;
+  background-color: var(--color-fondo-card); /* Se oscurece en modo oscuro */
+  color: var(--color-texto);                 /* Texto claro en modo oscuro */
+}
+
+textarea#input-texto:focus {
+  /* :focus se activa cuando el usuario hace click en el textarea */
+  outline: none;
+  border-color: var(--color-rojo);
+}
+
+/* ============================================================
+   BOTONES DE MOOD
+   ============================================================ */
+
+.contenedor-moods {
+  display: flex;
+  flex-wrap: wrap; /* Si no caben en una fila, pasan a la siguiente */
+  gap: 8px;
+  margin-bottom: 1.25rem;
+}
+
+.boton-mood {
+  border: 0.5px solid var(--color-borde);
+  background-color: var(--color-fondo-card);
+  border-radius: 20px;           /* Forma de píldora */
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  font-family: var(--fuente);
+  cursor: pointer;
+  color: var(--color-texto-secundario);
+  transition: all 0.15s ease;
+}
+
+.boton-mood:hover {
+  border-color: var(--color-rojo);
+  color: var(--color-texto);
+}
+
+.boton-mood.activo {
+  /* JS agrega la clase "activo" al botón seleccionado */
+  background-color: var(--color-rojo);
+  color: #ffffff;
+  border-color: var(--color-rojo);
+}
+
+/* ============================================================
+   BOTONES PRINCIPALES
+   ============================================================ */
+
+#btn-guardar {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--color-rojo);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: var(--fuente);
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: opacity 0.15s ease;
+  margin-bottom: 10px;
+}
+
+#btn-guardar:hover {
+  opacity: 0.85;
+}
+
+#btn-borrar-todo {
+  width: 100%;
+  padding: 8px;
+  background-color: transparent;
+  color: var(--color-texto-secundario);
+  border: 0.5px solid var(--color-borde);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: var(--fuente);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+#btn-borrar-todo:hover {
+  border-color: var(--color-rojo);
+  color: var(--color-rojo);
+}
+
+/* ============================================================
+   SECCIÓN DE REGISTROS Y FILTROS
+   ============================================================ */
+
+.seccion-registros {
+  margin-bottom: 1rem;
+}
+
+.seccion-registros > p {
+  /* > apunta solo a hijos directos, no nietos */
+  font-size: 0.75rem;
+  color: var(--color-texto-secundario);
+  letter-spacing: 0.15em;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.contenedor-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 1.25rem;
+}
+
+.boton-filtro {
+  border: 0.5px solid var(--color-borde);
+  background-color: transparent;
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 0.8rem;
+  font-family: var(--fuente);
+  cursor: pointer;
+  color: var(--color-texto-secundario);
+  transition: all 0.15s ease;
+}
+
+.boton-filtro:hover {
+  color: var(--color-texto);
+  border-color: var(--color-texto);
+}
+
+.boton-filtro.activo {
+  /* JS agrega esta clase al filtro seleccionado */
+  border-color: var(--color-rojo);
+  color: var(--color-rojo);
+}
+
+/* ============================================================
+   ENTRADAS DEL DIARIO (generadas por JS con .innerHTML)
+   ============================================================ */
+
+.entrada {
+  background-color: var(--color-fondo-formulario);
+  border: 0.5px solid var(--color-borde);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 10px;
+  animation: aparecer 0.3s ease;
+  /* animation aplica la animación definida abajo en @keyframes */
+}
+
+@keyframes aparecer {
+  /* @keyframes define los pasos de la animación */
+  from {
+    opacity: 0;                  /* Inicia transparente */
+    transform: translateY(-6px); /* Inicia 6px arriba */
+  }
+  to {
+    opacity: 1;                  /* Termina visible */
+    transform: translateY(0);    /* Termina en su lugar */
+  }
+}
+
+.entrada-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.badge-mood {
+  background-color: var(--color-rojo);
+  color: #ffffff;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.entrada-fecha {
+  font-size: 0.7rem;
+  color: var(--color-texto-secundario);
+  margin-left: auto;
+  /* margin-left: auto en flexbox empuja el elemento al extremo derecho */
+}
+
+.entrada-texto {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--color-texto); /* Cambia solo con el modo */
+}
+
+.entrada-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  border-top: 0.5px solid var(--color-borde);
+  padding-top: 8px;
+}
+
+.palabras-count {
+  font-size: 0.7rem;
+  color: var(--color-texto-secundario);
+}
+
+.btn-borrar-entrada {
+  background: none;
+  border: 0.5px solid var(--color-borde);
+  border-radius: 5px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-family: var(--fuente);
+  cursor: pointer;
+  color: var(--color-texto-secundario);
+  transition: all 0.15s ease;
+}
+
+.btn-borrar-entrada:hover {
+  border-color: var(--color-rojo);
+  color: var(--color-rojo);
+}
+
+/* ============================================================
+   MENSAJE VACÍO
+   ============================================================ */
+
+.vacio {
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-texto-secundario);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+
+
+/* ============================================================
+   RESPONSIVE GENERAL
+   ============================================================ */
+
+@media (max-width: 600px) {
+  /* max-width: 600px = solo en pantallas de 600px o MENOS (celulares) */
+
+  body {
+    padding: 1rem;
+    /* Menos padding en celular para aprovechar el espacio */
+  }
+
+  .estadisticas {
+    grid-template-columns: repeat(3, 1fr);
+    /* Las 3 cards siguen en fila pero más compactas */
+    gap: 8px;
+  }
+
+  .card p:first-child {
+    font-size: 1.2rem;
+    /* Número más pequeño en celular */
+  }
+
+  .contenedor-moods {
+    justify-content: center;
+    /* Botones de mood centrados en celular */
+  }
+
+  .contenedor-filtros {
+    justify-content: center;
+    /* Filtros centrados en celular */
+  }
+
+  header h1 {
+    font-size: 1.3rem;
+    /* Título más pequeño en celular */
+  }
+
+  header h2 {
+    font-size: 0.75rem;
+  }
+}

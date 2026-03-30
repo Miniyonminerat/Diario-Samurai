@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!-- DOCTYPE le dice al navegador que este archivo usa HTML5 -->
+
+<html lang="es" id="html-raiz">
+<!-- id="html-raiz" — JS lo usa para agregarle/quitarle la clase "oscuro" -->
+<!-- Cuando tenga la clase "oscuro" el CSS cambia todos los colores automáticamente -->
+
+<head>
+  <!-- <head> contiene configuración, no se muestra visualmente -->
+
+  <meta charset="UTF-8">
+  <!-- Permite usar tildes, ñ y caracteres especiales sin errores -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Hace que la página se vea bien en celulares y tablets -->
+
+  <title>Diario Samurái | JDM</title>
+  <!-- Texto que aparece en la pestaña del navegador -->
+
+  <link rel="stylesheet" href="style.css">
+  <!-- Conecta el archivo CSS con este HTML -->
+  <!-- rel="stylesheet" indica que es una hoja de estilos -->
+  <!-- href="style.css" es la ruta al archivo -->
+
+</head>
+
+<body>
+
+  <!-- ================================ -->
+  <!-- HEADER                          -->
+  <!-- ================================ -->
+
+  <header>
+
+    <div class="header-top">
+      <!-- Contenedor flex para poner el título y el botón en la misma fila -->
+
+      <div class="header-textos">
+        <!-- Agrupa los dos títulos -->
+        <h2>武士の日記 — DIARIO DEL SAMURÁI</h2>
+        <!-- Subtítulo en japonés, se muestra pequeño y en rojo -->
+
+        <h1>Registro de reflexiones</h1>
+        <!-- Título principal de la página -->
+      </div>
+
+      <button id="btn-tema" title="Cambiar modo claro/oscuro">
+        <!-- id="btn-tema" — JS escucha el click de este botón -->
+        <!-- title="..." muestra un tooltip al pasar el mouse -->
+        ☀️
+        <!-- Empieza con sol porque el modo por defecto es claro -->
+        <!-- JS cambia este texto a 🌙 cuando activa el modo oscuro -->
+      </button>
+
+    </div>
+    <!-- Fin de .header-top -->
+
+  </header>
+
+  <hr>
+  <!-- Línea separadora roja -->
+
+  <!-- ================================ -->
+  <!-- SECCIÓN PRINCIPAL               -->
+  <!-- ================================ -->
+
+  <section class="seccion-diario">
+
+    <!-- ================================ -->
+    <!-- TARJETAS DE ESTADÍSTICAS        -->
+    <!-- ================================ -->
+
+    <div class="estadisticas">
+      <!-- Contenedor grid con 3 columnas iguales -->
+
+      <div class="card">
+        <!-- Tarjeta 1: total de entradas guardadas -->
+        <p id="total-entradas">0</p>
+        <!-- JS actualiza este número cada vez que se guarda o borra una entrada -->
+        <p class="label-card">ENTRADAS</p>
+      </div>
+
+      <div class="card">
+        <!-- Tarjeta 2: mood de la última entrada -->
+        <p id="total-mood">—</p>
+        <!-- Empieza con "—" porque aún no hay mood seleccionado -->
+        <p class="label-card">MOOD HOY</p>
+      </div>
+
+      <div class="card">
+        <!-- Tarjeta 3: total de palabras escritas en todas las entradas -->
+        <p id="total-palabras">0</p>
+        <p class="label-card">PALABRAS</p>
+      </div>
+
+    </div>
+    <!-- Fin de .estadisticas -->
+
+    <!-- ================================ -->
+    <!-- FORMULARIO DE NUEVA ENTRADA     -->
+    <!-- ================================ -->
+
+    <div class="formulario">
+
+      <p class="label-seccion">¿QUÉ REFLEXIONASTE HOY, SAMURÁI?</p>
+      <!-- Etiqueta descriptiva del campo de texto -->
+
+      <textarea id="input-texto" placeholder="Escribe tu pensamiento del día..."></textarea>
+      <!-- <textarea> campo de texto multilínea -->
+      <!-- id="input-texto" — JS lee su contenido con .value -->
+      <!-- placeholder="..." texto gris que aparece cuando está vacío -->
+
+      <p class="label-seccion">ESTADO DE ÁNIMO</p>
+
+      <div class="contenedor-moods">
+        <!-- Contenedor flex para los botones de mood en fila -->
+
+        <!-- Cada botón tiene:
+             class="boton-mood"  → clase compartida, JS los selecciona todos con querySelectorAll
+             data-mood="..."     → atributo personalizado que JS lee con .dataset.mood -->
+
+        <button class="boton-mood" data-mood="Calma">Calma</button>
+        <button class="boton-mood" data-mood="Determinación">Determinación</button>
+        <button class="boton-mood" data-mood="Duda">Duda</button>
+        <button class="boton-mood" data-mood="Victoria">Victoria</button>
+        <button class="boton-mood" data-mood="Cansancio">Cansancio</button>
+
+      </div>
+      <!-- Fin de .contenedor-moods -->
+
+      <button id="btn-guardar">Registrar entrada</button>
+      <!-- Botón principal, JS escucha su click para guardar la entrada -->
+
+      <button id="btn-borrar-todo">Borrar todo</button>
+      <!-- Botón secundario, JS vacía el array de entradas al clickearlo -->
+
+    </div>
+    <!-- Fin de .formulario -->
+
+    <!-- ================================ -->
+    <!-- REGISTROS ANTERIORES Y FILTROS  -->
+    <!-- ================================ -->
+
+    <div class="seccion-registros">
+
+      <p>— REGISTROS ANTERIORES —</p>
+
+      <div class="contenedor-filtros">
+        <!-- Contenedor flex para los botones de filtro -->
+
+        <!-- Cada botón tiene:
+             class="boton-filtro"  → JS los selecciona todos con querySelectorAll
+             data-filtro="..."     → JS lee este valor para saber qué filtro aplicar -->
+
+        <button class="boton-filtro activo" data-filtro="Todos">Todos</button>
+        <!-- class="boton-filtro activo" — "Todos" empieza activo por defecto -->
+
+        <button class="boton-filtro" data-filtro="Calma">Calma</button>
+        <button class="boton-filtro" data-filtro="Determinación">Determinación</button>
+        <button class="boton-filtro" data-filtro="Duda">Duda</button>
+        <button class="boton-filtro" data-filtro="Victoria">Victoria</button>
+        <button class="boton-filtro" data-filtro="Cansancio">Cansancio</button>
+
+      </div>
+      <!-- Fin de .contenedor-filtros -->
+
+    </div>
+    <!-- Fin de .seccion-registros -->
+
+    <div id="lista-entradas">
+      <!-- Contenedor vacío donde JS inserta las entradas dinámicamente con .innerHTML -->
+      <!-- Empieza vacío porque al inicio no hay entradas guardadas -->
+    </div>
+
+  </section>
+  <!-- Fin de .seccion-diario -->
+
+  <script src="script.js"></script>
+  <!-- Conecta el archivo JS con este HTML -->
+  
+
+</body>
+</html>

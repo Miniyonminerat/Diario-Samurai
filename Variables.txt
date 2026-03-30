@@ -1,0 +1,120 @@
+# GUÍA DE JAVASCRIPT EXPLICADA DESDE CERO
+(Imagina que JavaScript es como el cerebro o las acciones que le dan vida a una página web. El HTML es el esqueleto, el CSS es la ropa y JavaScript es lo que permite que se mueva, piense y responda).
+
+---
+
+## 1. Conceptos Básicos de JavaScript (Para empezar a estudiar)
+
+Aquí te explico la teoría paso a paso con analogías de la vida real:
+
+- **Variables (`let` y `const`)**
+  Descripción: Son como "cajas" donde guardas información para usarla más tarde.
+  * `let`: Es una caja en la que puedes cambiar lo que hay adentro. (Ej. Tu edad cambia cada año).
+  * `const`: Es una caja sellada, lo que guardas ahí no se puede cambiar. (Ej. Tu fecha de nacimiento).
+  Ejemplo de código:
+  `let dineroEnCartera = 100; // Puedes gastarlo y la cantidad cambiará`
+  `const fechaNacimiento = "2000-10-05"; // Nunca va a cambiar`
+
+- **Tipos de Datos**
+  Descripción: Son los diferentes tipos de cosas que puedes guardar en esas cajas.
+  * Texto (`String`): Cualquier palabra o frase, siempre va entre comillas ("Hola", "Miniyon").
+  * Números (`Number`): Números para hacer cuentas (10, 3.14). Nunca llevan comillas.
+  * Booleanos (`Boolean`): Solo pueden ser Verdadero (`true`) o Falso (`false`). Como un interruptor de luz.
+  Ejemplo de código:
+  `let nombreUsuario = "Miniyon";`
+  `let edad = 20;`
+  `let estaConectado = true;`
+
+- **Arreglos (Arrays)**
+  Descripción: Es como una "lista de compras". Te permite guardar muchísimas cosas juntas en un solo lugar, bien formadas en fila y separadas por comas. Llevan corchetes `[]`.
+  Ejemplo de código:
+  `let listaDeCompras = ["Manzana", "Leche", "Cereal"];`
+
+- **Objetos**
+  Descripción: Es como una "ficha médica" o "tarjeta de presentación" de alguien. Agrupa mucha información sobre una sola cosa usando 'característica: valor'. Usan llaves `{}`.
+  Ejemplo de código:
+  `let miPerro = { nombre: "Firulais", raza: "Pug", edad: 3 };`
+
+- **Condicionales (`if` / `else`)**
+  Descripción: Es cómo la computadora toma decisiones basándose en reglas. (Como si te preguntara: "Si llueve, llevo paraguas; si no, me llevo lentes de sol").
+  Ejemplo de código:
+  `if (edad >= 18) {`
+  `  console.log("Eres mayor, puedes entrar");`
+  `} else {`
+  `  console.log("Eres menor, no puedes entrar");`
+  `}`
+
+- **Bucles o Ciclos (`for` / `while`)**
+  Descripción: Es una forma de ordenar: "Repite esta misma acción muchas veces pero automáticamente para que no tenga que escribirla yo 100 veces".
+  Ejemplo de código:
+  `for (let turno = 1; turno <= 5; turno++) {`
+  `  console.log("Es el turno número " + turno);`
+  `}`
+
+- **Funciones**
+  Descripción: Es como una "receta de cocina". Le das unos ingredientes iniciales (parámetros), la función hace un proceso dentro, y te devuelve una comida lista. Sirven para crear rutinas que puedes usar todas las veces que quieras.
+  Ejemplo de código:
+  `function hacerJugo(tipoDeFruta) {`
+  `  return "Aquí tienes un rico jugo de " + tipoDeFruta;`
+  `}`
+  `hacerJugo("Naranja"); // Resultado: "Aquí tienes un rico jugo de Naranja"`
+
+- **Eventos**
+  Descripción: Son "reacciones o alarmas". Es cómo JavaScript se da cuenta de que el usuario hizo algo en la página, por ejemplo: hacer click en un botón, escribir en el teclado, o mover el ratón.
+  Ejemplo de código:
+  `botonAceptar.addEventListener("click", funcionQueGuardaDatos);`
+  *(Traducción al español: "Oye Botón, ponte a escuchar (addEventListener) y cuando alguien te haga un 'click', ejecuta rápidamente la función para guardar").*
+
+- **El DOM (Document Object Model)**
+  Descripción: Es la manera en la que JavaScript lee tu página web. Imagina que convierte todas tus etiquetas HTML en objetos que JavaScript puede agarrar y alterar. (Puede cambiar colores, ocultar cosas o borrarlas cuando el usuario hace algo).
+  Ejemplo de código:
+  `document.getElementById("tituloPrincipal"); // "Atrapa" el título para que puedas modificarlo`
+
+- **La Consola (`console.log`)**
+  Descripción: Es como el "diario secreto" del programador. Todo lo que imprimes aquí el usuario final no lo ve en la web normal, pero tú sí lo puedes ver abriendo las opciones de desarrollador (F12). Te ayuda muchísimo para buscar errores o para ver si un código funciona.
+  Ejemplo de código:
+  `console.log("Si lees esto, significa que el código de guardar funcionó bien");`
+
+
+---
+
+
+## 2. Los Conceptos que usamos en tu Diario (Explicación de cómo se relacionan)
+
+Ahora vamos a relacionar esos conceptos con tu proyecto del Diario:
+
+- **let / const**
+  En el diario: Usamos `let` para las variables que guardan las notas temporales, y `const` para guardar botones principales que jamás van a cambiar en la página.
+
+- **Arrays [] y el método .push()**
+  En el diario: Tienes un "Array" (lista vacía). Y cada vez que le das a "Añadir Nota", usamos el poder de `.push()` para "empujar" o "meter" esa nota nueva al final de tu lista general.
+
+- **Objetos {}**
+  En el diario: Cuando escribes una nota, no se guarda solo "texto suelto". Se guarda un "Objeto" completo y organizado, que lleva el  `{ texto: "Me siento feliz", estadoAnimo: "Feliz", fecha: "2024-03-30" }`.
+
+- **addEventListener**
+  En el diario: Es el vigía que pusimos encima del botón "Guardar". Está mirando fijamente para que, en cuanto el usuario presione el click derecho, avise y guarde la información.
+
+- **getElementById / querySelector**
+  En el diario: Es el radar. Sirve para que JavaScript vaya y "busque" la caja donde el usuario está escribiendo, o el lugar en el HTML donde va a colocar las notas ya listas.
+
+- **.value**
+  En el diario: Es la acción de extraer. Si atrapaste la caja en la que el usuario escribe, le dices `.value` para "Extraerle todo el valor o texto que acaba de teclear".
+
+- **.textContent / .innerHTML**
+  En el diario: Sirve para inyectar en la página el texto de la nota de manera visual. HTML "en vivo" para que veas la nota aparecer frente a tus ojos sin tener que refrescar la web.
+
+- **.classList.add() / .classList.remove()**
+  En el diario: Sirve para ponerle "trajes nuevos" a los elementos (CSS). Por ejemplo, cuando pasas el ratón por una nota la podemos hacer brillar (añadiéndole una clase momentánea) o pintarla si el estado de ánimo es "triste".
+
+- **.map() / .filter() / .reduce()**
+  En el diario:
+  * `.filter()`: Filtra (como un colador). Se usa si dices "Muéstrame solo mis notas felices".
+  * `.map()`: Recorre absolutamente toda tu lista de notas y "transforma" una por una para devolverte tarjetas web bonitas.
+  * `.reduce()`: Es la calculadora. Sumaría todas las letras de tus notas juntas para decirte "Este año has escrito 5,000 palabras en total".
+
+- **Template literals (Las comillas raras ` ` y `${}`)**
+  En el diario: Son "comillas mágicas" muy potentes. Te dejan combinar texto normal con Variables JS adentro súper fácil, usando `${variable}`. Literalmente te salvan de escribir un código muy feo y revuelto.
+
+- **Date**
+  En el diario: Se encarga del reloj. Se usa para estampar la fecha real del día, para que sepas en el futuro que "El 30 de marzo estuviste un poco triste" de manera completamente automática.
